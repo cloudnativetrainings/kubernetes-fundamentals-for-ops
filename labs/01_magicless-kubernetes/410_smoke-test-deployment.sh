@@ -2,7 +2,7 @@
 
 set -euxo pipefail
 
-source ~/.trainingrc
+source .trainingrc
 
 export KUBECONFIG=secrets/admin.kubeconfig
 

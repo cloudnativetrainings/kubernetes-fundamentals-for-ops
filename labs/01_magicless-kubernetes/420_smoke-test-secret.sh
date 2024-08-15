@@ -2,7 +2,7 @@
 
 set -euxo pipefail
 
-source ~/.trainingrc
+source .trainingrc
 
 kubectl --kubeconfig secrets/admin.kubeconfig create secret generic "magicless" \
   --from-literal="mykey=mydata"

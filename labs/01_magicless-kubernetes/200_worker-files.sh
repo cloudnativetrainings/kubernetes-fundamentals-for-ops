@@ -2,7 +2,7 @@
 
 set -euxo pipefail
 
-source ~/.trainingrc
+source .trainingrc
 
 # copy secrets
 for node in worker-{0..2}; do

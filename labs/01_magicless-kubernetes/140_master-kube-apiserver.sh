@@ -4,7 +4,7 @@
 
 set -euxo pipefail
 
-source ~/.trainingrc
+source .trainingrc
 
 # create kube-apiserver service file
 export INTERNAL_IP=$( curl -s -H "Metadata-Flavor: Google" \

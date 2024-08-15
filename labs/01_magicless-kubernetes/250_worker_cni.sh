@@ -4,7 +4,7 @@
 
 set -euxo pipefail
 
-source ~/.trainingrc
+source .trainingrc
 
 # create folders
 sudo mkdir -p /opt/cni/bin/ /etc/cni/net.d/

@@ -2,10 +2,7 @@
 
 set -euxo pipefail
 
-source ~/.trainingrc
 source ./000_func.sh
-
-public=$( public_ip )
 
 # arguments: kubeconfig filename (kc), user, keyfile
 mkkubecfg() {
@@ -13,7 +10,7 @@ mkkubecfg() {
 
   kubectl config set-cluster magicless-cluster --kubeconfig=secrets/$kc \
     --certificate-authority=secrets/ca.pem --embed-certs=true \
-    --server=https://$public:6443 \
+    --server=https://172.18.0.2:6443 \
 
   kubectl config set-credentials $user --kubeconfig=secrets/$kc \
     --client-certificate=secrets/$keyfile.pem \

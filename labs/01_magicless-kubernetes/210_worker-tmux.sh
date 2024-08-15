@@ -5,16 +5,16 @@
 
 set -euxo pipefail
 
-source ~/.trainingrc
+source .trainingrc
 
 tmux new-session -d -s magicless-worker
 tmux split-window -t magicless-worker:0.0
 tmux split-window -t magicless-worker:0.0
 tmux select-layout -t magicless-worker:0 even-vertical
 
-tmux send-keys -t magicless-worker:0.0 'gcloud compute ssh worker-0' C-m
-tmux send-keys -t magicless-worker:0.1 'gcloud compute ssh worker-1' C-m
-tmux send-keys -t magicless-worker:0.2 'gcloud compute ssh worker-2' C-m
+tmux send-keys -t magicless-worker:0.0 'docker exec -it worker-0 bash' C-m
+tmux send-keys -t magicless-worker:0.1 'docker exec -it worker-1 bash' C-m
+tmux send-keys -t magicless-worker:0.2 'docker exec -it worker-2 bash' C-m
 
 tmux setw synchronize-panes on
 

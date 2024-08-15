@@ -4,7 +4,7 @@
 
 set -euxo pipefail
 
-source ~/.trainingrc
+source .trainingrc
 
 # create kube-apiserver service file
 sudo install -o root -m 0644 kube-controller-manager.service /etc/systemd/system/kube-controller-manager.service

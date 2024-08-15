@@ -2,7 +2,6 @@
 
 set -euxo pipefail
 
-source ~/.trainingrc
 source ./000_func.sh
 
 cfssl gencert -initca secrets/ca-csr.json | cfssljson -bare secrets/ca
@@ -49,4 +48,4 @@ mkcert system:kube-controller-manager kube-controller-manager system:kube-contro
 mkcert system:kube-proxy kube-proxy system:node-proxier ""
 mkcert system:kube-scheduler kube-scheduler system:kube-scheduler ""
 mkcert service-accounts service-account Kubernetes ""
-mkcert kubernetes kubernetes system:masters 10.32.0.1,kubernetes.default,127.0.0.1,10.254.254.100,10.254.254.101,10.254.254.102,$(public_ip)
+mkcert kubernetes kubernetes system:masters 10.32.0.1,kubernetes.default,127.0.0.1,10.254.254.100,10.254.254.101,10.254.254.102
