@@ -18,7 +18,7 @@ done
 
 for i in 0 1 2
 do
-  mkdir /workspaces/containerd/worker-${i}
+  mkdir -p /workspaces/containerd/worker-${i}
   docker run -d --network ${NETWORK_NAME} \
     --volume /var/run/docker.sock:/var/run/docker.sock \
     --volume /sys/fs/cgroup:/sys/fs/cgroup \

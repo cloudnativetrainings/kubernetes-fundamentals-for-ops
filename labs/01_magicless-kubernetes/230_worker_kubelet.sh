@@ -7,26 +7,28 @@ set -euxo pipefail
 source .trainingrc
 
 # create folders
-sudo mkdir -p /var/lib/kubelet/
+mkdir -p /var/lib/kubelet/
 
 # download and install binary
 wget -q --show-progress --https-only --timestamping \
   "https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64/kubelet"
-sudo install -o root -m 0755 kubelet /usr/local/bin/
+install -o root -m 0755 kubelet /usr/local/bin/
 
 # copy secrets
-sudo install -o root -m 0644 ca.pem /var/lib/kubelet/ca.pem
-sudo install -o root -m 0644 ${HOSTNAME}.pem /var/lib/kubelet/kubelet.pem
-sudo install -o root -m 0600 ${HOSTNAME}-key.pem /var/lib/kubelet/kubelet-key.pem
-sudo install -o root -m 0600 ${HOSTNAME}.kubeconfig /var/lib/kubelet/kubeconfig
+install -o root -m 0644 ca.pem /var/lib/kubelet/ca.pem
+install -o root -m 0644 ${HOSTNAME}.pem /var/lib/kubelet/kubelet.pem
+install -o root -m 0600 ${HOSTNAME}-key.pem /var/lib/kubelet/kubelet-key.pem
+install -o root -m 0600 ${HOSTNAME}.kubeconfig /var/lib/kubelet/kubeconfig
 
 # create kubelet config file
-sudo install -o root -m 0644 kubelet-config.yaml /var/lib/kubelet/kubelet-config.yaml
+export POD_CIDR="192.168.1$(hostname | tail -c 2).0/24"
+envsubst < kubelet-config.yaml > kubelet-config.yaml.subst
+install -o root -m 0644 kubelet-config.yaml.subst /var/lib/kubelet/kubelet-config.yaml
 
 # create kubelet service file
-sudo install -o root -m 0644 kubelet.service /etc/systemd/system/kubelet.service
+install -o root -m 0644 kubelet.service /etc/systemd/system/kubelet.service
 
 # start kubelet service
-sudo systemctl daemon-reload
-sudo systemctl enable kubelet
-sudo systemctl start kubelet
+systemctl daemon-reload
+systemctl enable kubelet
+systemctl start kubelet

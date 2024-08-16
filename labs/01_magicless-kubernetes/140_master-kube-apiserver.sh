@@ -14,9 +14,9 @@ export MASTER_1_IP=$(dig +short master-1)
 export MASTER_2_IP=$(dig +short master-2)
 
 envsubst < kube-apiserver.service > kube-apiserver.service.subst
-sudo install -o root -m 0644 kube-apiserver.service.subst /etc/systemd/system/kube-apiserver.service
+install -o root -m 0644 kube-apiserver.service.subst /etc/systemd/system/kube-apiserver.service
 
 # start kube-apiserver service
-sudo systemctl daemon-reload
-sudo systemctl enable kube-apiserver
-sudo systemctl start kube-apiserver
+systemctl daemon-reload
+systemctl enable kube-apiserver
+systemctl start kube-apiserver

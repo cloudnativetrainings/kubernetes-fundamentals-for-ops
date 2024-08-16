@@ -7,16 +7,16 @@ set -euxo pipefail
 source .trainingrc
 
 # create folders
-sudo mkdir -p /etc/etcd/
+mkdir -p /etc/etcd/
 
 # install etcd
 wget -q --show-progress --https-only --timestamping \
   "https://github.com/coreos/etcd/releases/download/v$ETCD_VERSION/etcd-v$ETCD_VERSION-linux-amd64.tar.gz"
 tar -xvf etcd-v$ETCD_VERSION-linux-amd64.tar.gz
-sudo install -o root -m 0755 etcd-v$ETCD_VERSION-linux-amd64/etcd* /usr/local/bin
+install -o root -m 0755 etcd-v$ETCD_VERSION-linux-amd64/etcd* /usr/local/bin
 
 # copy etcd certs
-sudo install -o root -m 0644 ca.pem kubernetes-key.pem kubernetes.pem /etc/etcd/
+install -o root -m 0644 ca.pem kubernetes-key.pem kubernetes.pem /etc/etcd/
 
 # create etcd service file
 export INTERNAL_IP=$(ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
@@ -26,9 +26,9 @@ export MASTER_1_IP=$(dig +short master-1)
 export MASTER_2_IP=$(dig +short master-2)
 
 envsubst < etcd.service > etcd.service.subst
-sudo install -o root -m 0644 etcd.service.subst /etc/systemd/system/etcd.service
+install -o root -m 0644 etcd.service.subst /etc/systemd/system/etcd.service
 
 # start etcd service
-sudo systemctl daemon-reload
-sudo systemctl enable etcd
-sudo systemctl start etcd
+systemctl daemon-reload
+systemctl enable etcd
+systemctl start etcd
