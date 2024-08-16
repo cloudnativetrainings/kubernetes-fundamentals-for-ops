@@ -18,10 +18,6 @@ done
 
 # copy config files
 for node in master-{0..2}; do
-  docker cp services/etcd.service ${node}:.
-  docker cp services/kube-apiserver.service ${node}:.
-  docker cp services/kube-controller-manager.service ${node}:.
-  docker cp services/kube-scheduler.service ${node}:.
   docker cp configs/kube-scheduler.yaml ${node}:.
   docker cp configs/kube-apiserver-to-kubelet.yaml ${node}:.
 done
@@ -33,5 +29,9 @@ for node in master-{0..2}; do
   docker cp 140_master-kube-apiserver.sh ${node}:.
   docker cp 150_master-kube-controller-manager.sh ${node}:.
   docker cp 160_master-kube-scheduler.sh ${node}:.
-  docker cp 170_master-kubelet-rbac.sh ${node}:.
+done
+
+# copy .trainingrc file
+for node in master-{0..2}; do
+  docker cp .trainingrc ${node}:.
 done

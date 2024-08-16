@@ -6,6 +6,7 @@ source .trainingrc
 
 # copy secrets
 for node in worker-{0..2}; do
+  docker cp .trainingrc ${node}:.
   gcloud compute scp secrets/${node}.pem \
                      secrets/${node}-key.pem \
                      secrets/${node}.kubeconfig \

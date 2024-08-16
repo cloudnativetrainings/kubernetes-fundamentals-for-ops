@@ -2,61 +2,55 @@
 
 In this lab you will setup a Kubernetes Cluster from scratch, without any help from tools like kubeadm, kubeone or others.
 
-## Preparations
-
-### Google Cloud Setup
-
-For having a convinient way of working in Google Cloud.
-
-```bash
-make setup
-source ~/.trainingrc
-make verify
-```
-
-### Tmux
-
-Additonally please deactivate Tmux in the Google Cloud Shell.
-
 ## Setting up the HA Cluster
 
 You will create a Kubernetes Cluster with 3 ControlPlane Nodes and 3 Worker Nodes.
 
 ### Infrastructure
 
-Create the Network and VMs.
+Create the Network and VMs. (Docker network and containers)
 
 #### Setup Network
 
-Create the
+Create the network:
 
-* Network and Subnet where the VMs will be placed in
-* Firewall Rules, for
-    * internal communication
-    * access to the API-Server
-* Static IP Address for the LoadBalancer in front of the API-Server instances.
+```bash
+./010_network.sh
+```
 
 #### Create the VMs
 
-Create the VMs for the HA Cluster
-* 3 VMs for the ControlPlane
-* 3 VMs for the Worker Nodes
+Create the Containers for the HA Cluster
+* 3 Containers for the ControlPlane
+* 3 Containers for the Worker Nodes
 
-### Sensitive Data
-
-Create the needed certs and config files for encrypted communication and storage.
+```bash
+./020_instances.sh
+```
 
 #### Create the needed Certs
 
 Create the CA and the certificates for encrypted communication between the Kubernetes Components.
 
+```bash
+./030_pki.sh
+```
+
 #### Create the needed Kubeconfigs
 
 Make use of the certificates to create the kubeconfigs for encrypted communication between the Kubernetes Components.
 
+```bash
+./040_kubeconfigs.sh
+```
+
 #### Create the Encryption Config
 
 Create a Kubernetes EncryptionConfig which ensures encrypted secrets in etcd.
+
+```bash
+./050_encryption.sh
+```
 
 ### Create the Controlplane
 
@@ -66,29 +60,57 @@ Create the 3 ControlPlane Nodes.
 
 Copy the needed configs and sensitive data to the 3 VM instances.
 
+```bash
+./100_master-files.sh
+```
+
 #### Switch to master nodes via Tmux
 
 Make use of Tmux for making changes on the 3 VMs
+
+```bash
+./110_master-tmux.sh
+```
 
 #### Create Etcd Cluster
 
 Install and start the etcd cluster.
 
+```bash
+bash ./120_master-etcd.sh
+```
+
 #### Preps for starting Controlplane Components
 
 Download ControlPlane binaries and install configs and certs to their proper location.
+
+```bash
+bash ./130_master-kube-services-preps.sh
+```
 
 #### Create the kube-apiserver services
 
 Install and start the kube-apiserver.
 
+```bash
+bash ./140_master-kube-apiserver.sh
+```
+
 #### Create the kube-controller-manager services
 
 Install and start the kube-controller-manager.
 
+```bash
+bash ./150_master-kube-controller-manager.sh
+```
+
 #### Create the kube-scheduler services
 
 Install and start the kube-scheduler.
+
+```bash
+bash ./160_master-kube-scheduler.sh
+```
 
 #### Ensure communication between kube-apiserver services and kubelets
 
