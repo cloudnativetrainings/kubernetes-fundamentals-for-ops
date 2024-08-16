@@ -26,10 +26,9 @@ export POD_CIDR=$(curl -s -H "Metadata-Flavor: Google" \
 envsubst < kubelet-config.yaml > kubelet-config.yaml.subst
 sudo install -o root -m 0644 kubelet-config.yaml.subst /var/lib/kubelet/kubelet-config.yaml
 
-# create kubelet service file
-sudo install -o root -m 0644 kubelet.service /etc/systemd/system/kubelet.service
-
-# start kubelet service
-sudo systemctl daemon-reload
-sudo systemctl enable kubelet
-sudo systemctl start kubelet
+# start kubelet 
+/usr/local/bin/kubelet \
+  --config=/var/lib/kubelet/kubelet-config.yaml \
+  --kubeconfig=/var/lib/kubelet/kubeconfig \
+  --register-node=true \
+  --v=2 &> /var/log/kubelet.log &

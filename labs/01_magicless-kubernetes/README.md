@@ -15,6 +15,7 @@ Create the Network and VMs. (Docker network and containers)
 Create the network:
 
 ```bash
+cd /workspaces/kubernetes-fundamentals-for-ops/labs/01_magicless-kubernetes
 ./010_network.sh
 ```
 
@@ -78,6 +79,12 @@ Install and start the etcd cluster.
 
 ```bash
 bash ./120_master-etcd.sh
+```
+
+You can check the logs:
+
+```bash
+tail -f /var/log/etcd.log
 ```
 
 #### Preps for starting Controlplane Components

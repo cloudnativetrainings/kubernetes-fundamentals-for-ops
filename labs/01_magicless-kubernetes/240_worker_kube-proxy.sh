@@ -20,10 +20,6 @@ sudo install -o root -m 0600 kube-proxy.kubeconfig /var/lib/kube-proxy/kubeconfi
 # create kube-proxy config file
 sudo install -o root -m 0644 kube-proxy-config.yaml /var/lib/kube-proxy/kube-proxy-config.yaml
 
-# create kube-proxy service file
-sudo install -o root -m 0644 kube-proxy.service /etc/systemd/system/kube-proxy.service
-
-# start kubelet service
-sudo systemctl daemon-reload
-sudo systemctl enable kube-proxy
-sudo systemctl start kube-proxy
+# start kube-proxy
+/usr/local/bin/kube-proxy \
+  --config=/var/lib/kube-proxy/kube-proxy-config.yaml &> /var/log/kubelet.log &

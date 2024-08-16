@@ -12,6 +12,6 @@ do
   for i in 0 1 2
   do
     docker run -d --network ${NETWORK_NAME} -v /var/run/docker.sock:/var/run/docker.sock \
-      --name "${type}-${i}" --hostname "${type}-${i}" ${UBUNTU_IMAGE}
+      --name "${type}-${i}" --hostname "${type}-${i}" --privileged ${UBUNTU_IMAGE}
   done
 done

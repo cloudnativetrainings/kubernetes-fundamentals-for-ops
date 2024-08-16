@@ -6,35 +6,32 @@ source .trainingrc
 
 # copy secrets
 for node in worker-{0..2}; do
-  docker cp .trainingrc ${node}:.
-  gcloud compute scp secrets/${node}.pem \
-                     secrets/${node}-key.pem \
-                     secrets/${node}.kubeconfig \
-                     secrets/kube-proxy.kubeconfig \
-                     secrets/ca.pem \
-                     ${node}:
+  docker cp secrets/${node}.pem ${node}:.
+  docker cp secrets/${node}-key.pem ${node}:.
+  docker cp secrets/${node}.kubeconfig ${node}:.
+  docker cp secrets/kube-proxy.kubeconfig ${node}:.
+  docker cp secrets/ca.pem ${node}:.
 done                     
 
 # copy config files
 for node in worker-{0..2}; do
-  gcloud compute scp configs/10-bridge.conf \
-                     configs/99-loopback.conf \
-                     configs/containerd-config.toml \
-                     configs/crictl.yaml \
-                     configs/kube-proxy-config.yaml \
-                     configs/kubelet-config.yaml \
-                     services/containerd.service \
-                     services/kube-proxy.service \
-                     services/kubelet.service \
-                     ${node}:
+  docker cp configs/10-bridge.conf ${node}:.
+  docker cp configs/99-loopback.conf ${node}:.
+  docker cp configs/containerd-config.toml ${node}:.
+  docker cp configs/crictl.yaml ${node}:.
+  docker cp configs/kube-proxy-config.yaml ${node}:.
+  docker cp configs/kubelet-config.yaml ${node}:.
 done
 
 # copy shell scripts
 for node in worker-{0..2}; do
-  gcloud compute scp 2*.sh ${node}:
+  docker cp 220_worker_cre.sh ${node}:.
+  docker cp 230_worker_kubelet.sh ${node}:.
+  docker cp 240_worker_kube-proxy.sh ${node}:.
+  docker cp 250_worker_cni.sh ${node}:.
 done
 
 # copy .trainingrc file
 for node in worker-{0..2}; do
-    gcloud compute scp ~/.node_trainingrc ${node}:~/.trainingrc
+    docker cp .trainingrc ${node}:.
 done
