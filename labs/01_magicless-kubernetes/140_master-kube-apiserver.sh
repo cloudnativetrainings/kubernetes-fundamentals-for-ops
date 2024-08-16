@@ -9,9 +9,9 @@ source .trainingrc
 # create kube-apiserver service file
 export INTERNAL_IP=$(ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 
-MASTER_0_IP=$(dig +short master-0)
-MASTER_1_IP=$(dig +short master-1)
-MASTER_2_IP=$(dig +short master-2)
+export MASTER_0_IP=$(dig +short master-0)
+export MASTER_1_IP=$(dig +short master-1)
+export MASTER_2_IP=$(dig +short master-2)
 
 envsubst < kube-apiserver.service > kube-apiserver.service.subst
 sudo install -o root -m 0644 kube-apiserver.service.subst /etc/systemd/system/kube-apiserver.service

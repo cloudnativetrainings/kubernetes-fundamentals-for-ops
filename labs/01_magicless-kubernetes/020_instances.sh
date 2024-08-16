@@ -7,12 +7,23 @@ export NETWORK_NAME="k8s-net"
 
 docker pull ${UBUNTU_IMAGE}
 
-for type in master worker
+for i in 0 1 2
 do
-  for i in 0 1 2
-  do
-    docker run -d --network ${NETWORK_NAME} -v /var/run/docker.sock:/var/run/docker.sock \
-      --name "${type}-${i}" --hostname "${type}-${i}" --volume=/sys/fs/cgroup:/sys/fs/cgroup \
-      --privileged ${UBUNTU_IMAGE}
-  done
+  docker run -d --network ${NETWORK_NAME} \
+    --volume /var/run/docker.sock:/var/run/docker.sock \
+    --volume /sys/fs/cgroup:/sys/fs/cgroup \
+    --name "master-${i}" --hostname "master-${i}" \
+    --privileged ${UBUNTU_IMAGE}
+done
+
+for i in 0 1 2
+do
+  mkdir /workspaces/containerd/worker-${i}
+  docker run -d --network ${NETWORK_NAME} \
+    --volume /var/run/docker.sock:/var/run/docker.sock \
+    --volume /sys/fs/cgroup:/sys/fs/cgroup \
+    --volume /workspaces/containerd/worker-${i}:/var/lib/containerd \
+    --name "worker-${i}" \
+    --hostname "worker-${i}" \
+    --privileged ${UBUNTU_IMAGE}
 done
