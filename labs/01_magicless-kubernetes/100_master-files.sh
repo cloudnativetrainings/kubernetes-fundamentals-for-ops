@@ -18,6 +18,10 @@ done
 
 # copy config files
 for node in master-{0..2}; do
+  docker cp services/etcd.service ${node}:.
+  docker cp services/kube-apiserver.service ${node}:.
+  docker cp services/kube-controller-manager.service ${node}:.
+  docker cp services/kube-scheduler.service ${node}:.
   docker cp configs/kube-scheduler.yaml ${node}:.
   docker cp configs/kube-apiserver-to-kubelet.yaml ${node}:.
 done

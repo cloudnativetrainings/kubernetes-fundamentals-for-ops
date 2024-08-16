@@ -11,7 +11,7 @@ for node in worker-{0..2}; do
   docker cp secrets/${node}.kubeconfig ${node}:.
   docker cp secrets/kube-proxy.kubeconfig ${node}:.
   docker cp secrets/ca.pem ${node}:.
-done                     
+done
 
 # copy config files
 for node in worker-{0..2}; do
@@ -21,6 +21,9 @@ for node in worker-{0..2}; do
   docker cp configs/crictl.yaml ${node}:.
   docker cp configs/kube-proxy-config.yaml ${node}:.
   docker cp configs/kubelet-config.yaml ${node}:.
+  docker cp services/containerd.service ${node}:.
+  docker cp services/kube-proxy.service ${node}:.
+  docker cp services/kubelet.service ${node}:.
 done
 
 # copy shell scripts

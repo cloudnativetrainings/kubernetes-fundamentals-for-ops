@@ -20,11 +20,14 @@ wget -q --show-progress --https-only --timestamping \
 sudo tar zxvf containerd-${CONTAINERD_VERSION}-linux-amd64.tar.gz -C /usr/local
 rm -f containerd-${CONTAINERD_VERSION}-linux-amd64.tar.gz
 
-# copy the containterd config
+# copy the containterd service config
+sudo install -o root -m 0644 containerd.service /etc/systemd/system/containerd.service
 sudo install -o root -m 0644 containerd-config.toml /etc/containerd/config.toml
 
-# start containerd
-/usr/local/bin/containerd &> /var/log/containerd.log &
+# start containerd service
+sudo systemctl daemon-reload
+sudo systemctl enable containerd
+sudo systemctl start containerd
 
 # download and install crictl
 wget -q --show-progress --https-only --timestamping \

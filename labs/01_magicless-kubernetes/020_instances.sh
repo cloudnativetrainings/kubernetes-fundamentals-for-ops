@@ -2,7 +2,7 @@
 
 set -euxo pipefail
 
-export UBUNTU_IMAGE="quay.io/kubermatic-labs/devcontainers:ubuntu-2404-002"
+export UBUNTU_IMAGE="quay.io/kubermatic-labs/devcontainers:ubuntu-2404-003"
 export NETWORK_NAME="k8s-net"
 
 docker pull ${UBUNTU_IMAGE}
