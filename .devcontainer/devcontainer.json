@@ -22,6 +22,7 @@
       }
     },
     "remoteUser": "root",
+    "privileged": true,
     "runArgs": [
       "--network=host"
     ],
@@ -30,4 +31,4 @@
       80,
       443
     ]
-  }
+}

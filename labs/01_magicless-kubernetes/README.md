@@ -183,6 +183,14 @@ bash ./250_worker_cni.sh
 
 > Now you can exit tmux by typing `exit` twice
 
+### Ensure bridge CNI-Plugin is working
+
+Due to the use of the bridge CNI plugin we have to create routes between the worker nodes.
+
+```bash
+./300_routes.sh
+```
+
 ### Test your Kubernetes Cluster
 
 Verify everything is working.
