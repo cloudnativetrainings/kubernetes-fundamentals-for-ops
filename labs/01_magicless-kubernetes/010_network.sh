@@ -4,4 +4,6 @@ set -euxo pipefail
 
 source .trainingrc
 
-docker network create ${NETWORK_NAME}
+docker network create ${NETWORK_NAME} \
+ -o "com.docker.network.bridge.enable_ip_masquerade"="true" \
+ -o "com.docker.network.driver.mtu"="1500"
