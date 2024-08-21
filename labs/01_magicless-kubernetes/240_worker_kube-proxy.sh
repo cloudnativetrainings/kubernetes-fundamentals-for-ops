@@ -18,7 +18,9 @@ install -o root -m 0755 kube-proxy /usr/local/bin/
 install -o root -m 0600 kube-proxy.kubeconfig /var/lib/kube-proxy/kubeconfig
 
 # create kube-proxy config file
-install -o root -m 0644 kube-proxy-config.yaml /var/lib/kube-proxy/kube-proxy-config.yaml
+export POD_CIDR="192.168.1$(hostname | tail -c 2).0/24"
+envsubst < kube-proxy-config.yaml > kube-proxy-config.yaml.subst
+install -o root -m 0644 kube-proxy-config.yaml.subst /var/lib/kube-proxy/kube-proxy-config.yaml
 
 # create kube-proxy service file
 install -o root -m 0644 kube-proxy.service /etc/systemd/system/kube-proxy.service
