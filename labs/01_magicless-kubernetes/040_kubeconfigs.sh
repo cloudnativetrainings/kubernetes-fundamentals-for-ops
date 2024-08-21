@@ -10,7 +10,7 @@ mkkubecfg() {
 
   kubectl config set-cluster magicless-cluster --kubeconfig=secrets/$kc \
     --certificate-authority=secrets/ca.pem --embed-certs=true \
-    --server=https://172.18.0.2:6443 \
+    --server=https://$( vip_ip ):6443 \
 
   kubectl config set-credentials $user --kubeconfig=secrets/$kc \
     --client-certificate=secrets/$keyfile.pem \

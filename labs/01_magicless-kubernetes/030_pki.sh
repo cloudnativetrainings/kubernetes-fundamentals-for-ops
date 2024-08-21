@@ -52,4 +52,4 @@ mkcert system:kube-controller-manager kube-controller-manager system:kube-contro
 mkcert system:kube-proxy kube-proxy system:node-proxier ""
 mkcert system:kube-scheduler kube-scheduler system:kube-scheduler ""
 mkcert service-accounts service-account Kubernetes ""
-mkcert kubernetes kubernetes system:masters 10.32.0.1,kubernetes.default,127.0.0.1,${MASTER_0_IP},${MASTER_1_IP},${MASTER_2_IP}
+mkcert kubernetes kubernetes system:masters 10.32.0.1,kubernetes.default,127.0.0.1,${MASTER_0_IP},${MASTER_1_IP},${MASTER_2_IP},$( vip_ip )

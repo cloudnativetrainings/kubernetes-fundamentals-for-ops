@@ -24,7 +24,8 @@
     "remoteUser": "root",
     "privileged": true,
     "runArgs": [
-      "--network=host"
+      "--network=host",
+      "--cgroupns=host"
     ],
     "forwardPorts": [
       8080,

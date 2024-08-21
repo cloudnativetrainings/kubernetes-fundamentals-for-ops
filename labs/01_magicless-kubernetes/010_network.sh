@@ -2,6 +2,6 @@
 
 set -euxo pipefail
 
-export NETWORK_NAME="k8s-net"
+source .trainingrc
 
 docker network create ${NETWORK_NAME}

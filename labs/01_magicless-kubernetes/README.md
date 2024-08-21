@@ -102,6 +102,14 @@ Install and start the kube-apiserver.
 bash ./140_master-kube-apiserver.sh
 ```
 
+#### Create Load Balancer for kube-apiserver
+
+Update `keepalived` configuration and restart the service.
+
+```bash
+bash ./145_master-keepalived.sh
+```
+
 #### Create the kube-controller-manager services
 
 Install and start the kube-controller-manager.
