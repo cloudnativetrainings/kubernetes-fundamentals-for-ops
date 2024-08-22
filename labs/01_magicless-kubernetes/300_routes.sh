@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euxo pipefail
+
 export WORKER_0_IP=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' worker-0)
 export WORKER_1_IP=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' worker-1)
 export WORKER_2_IP=$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' worker-2)
