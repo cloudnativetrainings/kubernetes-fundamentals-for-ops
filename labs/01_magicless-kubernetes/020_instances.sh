@@ -6,7 +6,7 @@ source .trainingrc
 
 source ./000_func.sh
 
-export UBUNTU_IMAGE="quay.io/kubermatic-labs/devcontainers:ubuntu-2404-005"
+export UBUNTU_IMAGE="quay.io/kubermatic-labs/devcontainers:ubuntu-2404-006"
 
 docker pull ${UBUNTU_IMAGE}
 
@@ -51,3 +51,5 @@ do
     docker exec -it ${node}-${i} bash -c 'cat ./hosts >> /etc/hosts'
   done
 done
+
+cat /tmp/hosts >> /etc/hosts

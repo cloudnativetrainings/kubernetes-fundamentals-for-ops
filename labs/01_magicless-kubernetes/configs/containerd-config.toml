@@ -1,6 +1,7 @@
 version = 2
 
 [plugins."io.containerd.grpc.v1.cri"]
+  sandbox_image = "k8s.gcr.io/pause:3.2"
   [plugins."io.containerd.grpc.v1.cri".containerd]
     snapshotter = "overlayfs"
     default_runtime_name = "runc"
