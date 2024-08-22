@@ -4,7 +4,7 @@ set -euxo pipefail
 
 source .trainingrc
 
-export UBUNTU_IMAGE="quay.io/kubermatic-labs/devcontainers:ubuntu-2404-004"
+export UBUNTU_IMAGE="quay.io/kubermatic-labs/devcontainers:ubuntu-2404-005"
 
 docker pull ${UBUNTU_IMAGE}
 
