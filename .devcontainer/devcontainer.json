@@ -23,6 +23,7 @@
     },
     "remoteUser": "root",
     "privileged": true,
+    "cappAdd": ["ALL"],
     "runArgs": [
       "--network=host",
       "--cgroupns=host"
